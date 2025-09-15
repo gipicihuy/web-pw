@@ -12,9 +12,31 @@ module.exports = (req, res) => {
     const correctPassword = process.env.WEBSITE_PASSWORD;
 
     if (submittedPassword === correctPassword) {
-        // Kata sandi benar, arahkan ke eberardos.my.id
-        console.log('Kata sandi benar. Redirecting...');
-        res.redirect('https://eberardos.my.id');
+        // Kata sandi benar, kirim halaman HTML dengan redirect
+        res.status(200).send(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta http-equiv="refresh" content="0;url=https://eberardos.my.id">
+                <title>Redirecting...</title>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        flex-direction: column;
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>Berhasil!</h1>
+                <p>Anda akan dialihkan dalam beberapa saat. Jika tidak, klik <a href="https://eberardos.my.id">di sini</a>.</p>
+            </body>
+            </html>
+        `);
     } else {
         // Kata sandi salah
         console.log('Kata sandi salah.');
